@@ -14,7 +14,7 @@ hooks:
       runas: root
       #  AfterInstall:
       #  - location: miscellaneous/codedeploy/AfterInstall
-      # timeout: 600
+      # #timeout: 600
       # runas: root
   ApplicationStart:
     - location: miscellaneous/codedeploy/ApplicationStart
