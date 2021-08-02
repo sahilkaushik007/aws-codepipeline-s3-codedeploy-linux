@@ -1,0 +1,30 @@
+#!/bin/bash
+
+AIF_DIR="/var/www/aif"
+AIF_BACKUP_DIR="/var/www/aif_old"
+
+service php-fpm stop
+service httpd stop
+
+#############################################
+# FOR SQS WORKER SUPERVISORD SERVICE STOP
+##############################################
+service supervisord stop
+
+###############################################
+#   END SQS WORKER SUPERVISORD SERVICE
+###############################################
+
+#if [ -f /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl ]; then
+#    /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a stop
+#fi
+
+#CodeDeploy complains in AutoScaling scenario as there is no file overwrite option, when codedeploy is launched automatically from ASG
+#making a backup of the current nios system.
+
+if [ -d $YOGYATA_BACKUP_DIR ]; then
+    rm -rf $AIF_BACKUP_DIR
+fi
+
+mv $AIF_DIR $AIF_BACKUP_DIR
+
